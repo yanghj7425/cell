@@ -1,0 +1,7 @@
+#logging:
+#  pattern:
+#    console: '%d - %msg%n'
+#  file: D:\personal\code\cell\cell.log
+#  level:
+#    root: info
+#    com.self.cell.LoggerTest: debug
