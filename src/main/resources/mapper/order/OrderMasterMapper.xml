@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
     <result column="buyer_name" jdbcType="VARCHAR" property="buyerName" />
     <result column="buyer_phone" jdbcType="VARCHAR" property="buyerPhone" />
     <result column="buyer_address" jdbcType="VARCHAR" property="buyerAddress" />

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "product_info")
 public class ProductInfo implements Serializable {
     @Column(name = "product_id")
-    private String productId;
+    private Long productId;
 
     /**
      * 商品名称
@@ -57,15 +57,15 @@ public class ProductInfo implements Serializable {
     /**
      * @return product_id
      */
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
     /**
      * @param productId
      */
-    public void setProductId(String productId) {
-        this.productId = productId == null ? null : productId.trim();
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     /**

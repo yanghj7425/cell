@@ -1,15 +1,19 @@
 package com.self.cell.product.entity;
 
-import org.apache.ibatis.annotations.Update;
+import lombok.Builder;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "product_category")
+@ToString
 public class ProductCategory implements Serializable {
+
     @Column(name = "category_id")
-    private Integer categoryId;
+    @Id
+    private Long categoryId;
 
     /**
      * 类目名称
@@ -40,14 +44,14 @@ public class ProductCategory implements Serializable {
     /**
      * @return category_id
      */
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
     /**
      * @param categoryId
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

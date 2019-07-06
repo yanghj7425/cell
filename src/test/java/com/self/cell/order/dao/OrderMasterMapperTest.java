@@ -28,7 +28,7 @@ public class OrderMasterMapperTest {
 
         OrderMaster orderMaster = new OrderMaster();
 
-        orderMaster.setOrderId("1");
+        orderMaster.setOrderId((long) 1);
         orderMaster.setBuyerName("猪头");
         orderMaster.setBuyerPhone("123123123");
         orderMaster.setBuyerAddress("海王星");

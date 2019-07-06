@@ -1,17 +1,14 @@
 package com.self.cell.order.entity;
 
-import lombok.ToString;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "order_master")
-@ToString
 public class OrderMaster implements Serializable {
     @Column(name = "order_id")
-    private String orderId;
+    private Long orderId;
 
     /**
      * 买家姓名
@@ -72,15 +69,15 @@ public class OrderMaster implements Serializable {
     /**
      * @return order_id
      */
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
     /**
      * @param orderId
      */
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     /**

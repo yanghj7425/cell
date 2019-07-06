@@ -8,19 +8,19 @@ import javax.persistence.*;
 @Table(name = "order_detail")
 public class OrderDetail implements Serializable {
     @Column(name = "detail_id")
-    private String detailId;
+    private Long detailId;
 
     /**
      * 订单id
      */
     @Column(name = "order_id")
-    private String orderId;
+    private Long orderId;
 
     /**
      * 商品id
      */
     @Column(name = "product_id")
-    private String productId;
+    private Long productId;
 
     /**
      * 商品名称
@@ -63,15 +63,15 @@ public class OrderDetail implements Serializable {
     /**
      * @return detail_id
      */
-    public String getDetailId() {
+    public Long getDetailId() {
         return detailId;
     }
 
     /**
      * @param detailId
      */
-    public void setDetailId(String detailId) {
-        this.detailId = detailId == null ? null : detailId.trim();
+    public void setDetailId(Long detailId) {
+        this.detailId = detailId;
     }
 
     /**
@@ -79,7 +79,7 @@ public class OrderDetail implements Serializable {
      *
      * @return order_id - 订单id
      */
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
@@ -88,8 +88,8 @@ public class OrderDetail implements Serializable {
      *
      * @param orderId 订单id
      */
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     /**
@@ -97,7 +97,7 @@ public class OrderDetail implements Serializable {
      *
      * @return product_id - 商品id
      */
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
@@ -106,8 +106,8 @@ public class OrderDetail implements Serializable {
      *
      * @param productId 商品id
      */
-    public void setProductId(String productId) {
-        this.productId = productId == null ? null : productId.trim();
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     /**

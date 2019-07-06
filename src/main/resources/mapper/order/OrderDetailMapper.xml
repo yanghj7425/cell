@@ -5,9 +5,9 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="detail_id" jdbcType="VARCHAR" property="detailId" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
     <result column="product_quantity" jdbcType="INTEGER" property="productQuantity" />

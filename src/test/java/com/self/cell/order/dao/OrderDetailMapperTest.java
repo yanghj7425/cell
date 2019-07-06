@@ -24,10 +24,10 @@ public class OrderDetailMapperTest {
     @Test
     public void insertTest() {
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setDetailId("1");
-        orderDetail.setOrderId("1");
+        orderDetail.setDetailId((long) 1);
+        orderDetail.setOrderId((long) 1);
 
-        orderDetail.setProductId("1");
+        orderDetail.setProductId((long) 1);
 //        orderDetail.setProductName("asdf");
 //        orderDetail.setProductIcon("888");
 //        orderDetail.setProductPrice(new BigDecimal(12));
@@ -38,11 +38,9 @@ public class OrderDetailMapperTest {
 //                insert, ""
 //        );
 
-
-        OrderDetail orderDetail1 = orderDetailMapper.selectByPrimaryKey(orderDetail);
+        OrderDetail orderDetail1 = orderDetailMapper.selectByPrimaryKey(1);
 
         System.out.println(orderDetail);
-
 
 
     }

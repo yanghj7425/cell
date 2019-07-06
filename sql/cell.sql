@@ -1,6 +1,10 @@
 
+create database cell charset utf8mb4;
+
+use cell;
+
 CREATE TABLE product_info (
-    product_id VARCHAR(32) NOT NULL PRIMARY KEY,
+    product_id bigint NOT NULL PRIMARY KEY,
     product_name VARCHAR(64) NOT NULL COMMENT '商品名称',
     product_price DECIMAL(8 , 2 ) NOT NULL COMMENT '商品名称',
     product_stock INT NOT NULL COMMENT '库存',
@@ -12,7 +16,7 @@ CREATE TABLE product_info (
 
 
 CREATE TABLE product_category (
-    category_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(64) NOT NULL COMMENT '类目名称',
     category_type INT NOT NULL COMMENT '类目编号',
     create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -22,7 +26,7 @@ CREATE TABLE product_category (
 
 
 CREATE TABLE order_master (
-    order_id VARCHAR(32) NOT NULL PRIMARY KEY,
+    order_id bigint NOT NULL PRIMARY KEY,
     buyer_name VARCHAR(32) NOT NULL COMMENT '买家姓名',
     buyer_phone VARCHAR(32) NOT NULL COMMENT '买家电话',
     buyer_address VARCHAR(128) NOT NULL COMMENT '买家地址',
@@ -39,9 +43,9 @@ CREATE TABLE order_master (
 
 
 CREATE TABLE order_detail (
-    detail_id VARCHAR(32) NOT NULL PRIMARY KEY,
-    order_id VARCHAR(32) NOT NULL COMMENT '订单id',
-    product_id VARCHAR(32) NOT NULL COMMENT '商品id',
+    detail_id BIGINT NOT NULL PRIMARY KEY,
+    order_id BIGINT NOT NULL COMMENT '订单id',
+    product_id BIGINT NOT NULL COMMENT '商品id',
     product_name VARCHAR(32) NOT NULL COMMENT '商品名称',
     product_price DECIMAL(8 , 2 ) NOT NULL COMMENT '商品价格',
     product_quantity INT NOT NULL COMMENT '商品数量',
