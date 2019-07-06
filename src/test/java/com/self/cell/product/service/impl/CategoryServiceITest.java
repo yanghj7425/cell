@@ -2,6 +2,8 @@ package com.self.cell.product.service.impl;
 
 import com.self.cell.product.entity.ProductCategory;
 import com.self.cell.product.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,14 @@ import java.util.Random;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class CategoryServiceITest {
 
     @Autowired
     private CategoryService categoryService;
 
 
+    @Test
     public void insertOneTest() {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryName("unit test");
@@ -46,7 +50,7 @@ public class CategoryServiceITest {
         System.out.println(integer);
     }
 
-
+    @Test
     public void deleteOneByIdTest() {
         categoryService.deleteOneById((long) 1);
     }
@@ -54,13 +58,9 @@ public class CategoryServiceITest {
 
     @Test
     public void deleteByWhereTest() {
-
         ProductCategory productCategory = new ProductCategory();
-
         productCategory.setCategoryName("unit test");
-
         categoryService.deleteByWhere(productCategory);
-
     }
 
 
@@ -89,11 +89,17 @@ public class CategoryServiceITest {
     }
 
 
+    @Test
     public void queryOneById() {
+        ProductCategory productCategory = categoryService.queryOneById((long) 0);
+        Assert.assertNotNull(productCategory);
+    }
 
-        ProductCategory productCategory = categoryService.queryOneById((long) 1);
-        System.out.println(productCategory);
 
+    @Test
+    public void queryListByPropertyTest() {
+        List<ProductCategory> productCategories = categoryService.queryListByProperty(ProductCategory.class, "categoryName", Arrays.asList(new String[]{"unit test"}));
+        productCategories.forEach(v -> log.debug(v.toString()));
     }
 
 

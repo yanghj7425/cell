@@ -55,6 +55,21 @@ public abstract class AbstractBaseService<T, M extends Mapper<T>> implements Bas
         return baseMapper.selectByPrimaryKey(id);
     }
 
+
+    @Override
+    public List<T> queryListByProperty(Class<T> clazz, String property, List<Object> values) {
+        Example example = new Example(clazz);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andIn(property, values);
+        return baseMapper.selectByExample(example);
+    }
+
+
+    @Override
+    public List<T> queryListByExample(Example example) {
+        return baseMapper.selectByExample(example);
+    }
+
     @Override
     public List<T> queryAll() {
         return baseMapper.selectAll();

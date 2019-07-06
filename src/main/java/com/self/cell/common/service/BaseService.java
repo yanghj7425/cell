@@ -1,5 +1,7 @@
 package com.self.cell.common.service;
 
+import tk.mybatis.mapper.entity.Example;
+
 import java.util.List;
 
 public interface BaseService<T> {
@@ -17,6 +19,10 @@ public interface BaseService<T> {
     Integer updateSelectiveByProperty(T t, String property, List<Object> values);
 
     T queryOneById(Long id);
+
+    List<T> queryListByProperty(Class<T> clazz, String property, List<Object> values);
+
+    List<T> queryListByExample(Example example);
 
     List<T> queryAll();
 
