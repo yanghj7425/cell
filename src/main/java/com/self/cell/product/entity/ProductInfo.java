@@ -1,12 +1,16 @@
 package com.self.cell.product.entity;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "product_info")
+@ToString
 public class ProductInfo implements Serializable {
+    @Id
     @Column(name = "product_id")
     private Long productId;
 
@@ -23,6 +27,12 @@ public class ProductInfo implements Serializable {
     private BigDecimal productPrice;
 
     /**
+     * 商品描述
+     */
+    @Column(name = "product_description")
+    private String productDescription;
+
+    /**
      * 库存
      */
     @Column(name = "product_stock")
@@ -33,6 +43,12 @@ public class ProductInfo implements Serializable {
      */
     @Column(name = "product_icon")
     private String productIcon;
+
+    /**
+     * 商品状态:1 正常,0下架
+     */
+    @Column(name = "product_status")
+    private Byte productStatus;
 
     /**
      * 类目编号
@@ -105,6 +121,24 @@ public class ProductInfo implements Serializable {
     }
 
     /**
+     * 获取商品描述
+     *
+     * @return product_description - 商品描述
+     */
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    /**
+     * 设置商品描述
+     *
+     * @param productDescription 商品描述
+     */
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription == null ? null : productDescription.trim();
+    }
+
+    /**
      * 获取库存
      *
      * @return product_stock - 库存
@@ -138,6 +172,24 @@ public class ProductInfo implements Serializable {
      */
     public void setProductIcon(String productIcon) {
         this.productIcon = productIcon == null ? null : productIcon.trim();
+    }
+
+    /**
+     * 获取商品状态:1 正常,0下架
+     *
+     * @return product_status - 商品状态:1 正常,0下架
+     */
+    public Byte getProductStatus() {
+        return productStatus;
+    }
+
+    /**
+     * 设置商品状态:1 正常,0下架
+     *
+     * @param productStatus 商品状态:1 正常,0下架
+     */
+    public void setProductStatus(Byte productStatus) {
+        this.productStatus = productStatus;
     }
 
     /**

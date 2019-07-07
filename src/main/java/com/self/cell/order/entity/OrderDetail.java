@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "order_detail")
 public class OrderDetail implements Serializable {
     @Column(name = "detail_id")
+    @Id
     private Long detailId;
 
     /**

@@ -7,12 +7,15 @@ CREATE TABLE product_info (
     product_id bigint NOT NULL PRIMARY KEY,
     product_name VARCHAR(64) NOT NULL COMMENT '商品名称',
     product_price DECIMAL(8 , 2 ) NOT NULL COMMENT '商品名称',
+    product_description varchar(512) not null comment '商品描述',
     product_stock INT NOT NULL COMMENT '库存',
     product_icon VARCHAR(512) NOT NULL COMMENT '小图',
+    product_status TINYINT NOT NULL DEFAULT 1 COMMENT '商品状态:1 正常,0下架',
     category_type INT NOT NULL COMMENT '类目编号',
     create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
 )  COMMENT '商品';
+
 
 
 CREATE TABLE product_category (

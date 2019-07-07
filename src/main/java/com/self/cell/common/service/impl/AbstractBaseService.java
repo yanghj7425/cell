@@ -65,8 +65,7 @@ public abstract class AbstractBaseService<T, M extends Mapper<T>> implements Bas
     }
 
 
-    @Override
-    public List<T> queryListByExample(Example example) {
+    protected List<T> queryListByExample(Example example) {
         return baseMapper.selectByExample(example);
     }
 

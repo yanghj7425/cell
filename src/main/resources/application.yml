@@ -9,6 +9,8 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
+
+
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
 
@@ -16,6 +18,12 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
+
+
+server:
+  servlet:
+    context-path: /cell
+  port: 8080
 
 
 
