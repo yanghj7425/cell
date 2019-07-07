@@ -8,5 +8,5 @@ import java.util.List;
 public interface OrderDetailService extends BaseService<OrderDetail> {
 
 
-    List<OrderDetail> queryOrderByBuyerOrderId(String orderId);
+    List<OrderDetail> queryOrderByBuyerOrderId(long orderId);
 }

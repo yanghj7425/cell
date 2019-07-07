@@ -1,10 +1,13 @@
 package com.self.cell.order.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
+@Data
 @Table(name = "order_detail")
 public class OrderDetail implements Serializable {
 

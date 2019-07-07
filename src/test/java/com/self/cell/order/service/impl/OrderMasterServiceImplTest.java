@@ -2,7 +2,9 @@ package com.self.cell.order.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.self.cell.common.pojo.bo.PageParam;
+import com.self.cell.order.entity.OrderDetail;
 import com.self.cell.order.entity.OrderMaster;
+import com.self.cell.order.pojo.dto.OrderDto;
 import com.self.cell.order.service.OrderMasterService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -27,44 +29,63 @@ public class OrderMasterServiceImplTest {
     @Autowired
     private OrderMasterService orderMasterService;
 
+    private final String BUYER_OPENID = "this_is_open_id_str";
+
+
+    private final long ORDER_ID = 1562508865153L;
+
     @Test
-    public void insertOne() {
-        OrderMaster orderMaster = new OrderMaster();
-        orderMaster.setOrderId(111111211111L);
-        orderMaster.setBuyerAddress("地球");
-        orderMaster.setBuyerName("Dom,Yang");
-        orderMaster.setBuyerAmount(new BigDecimal(3.4));
-        orderMaster.setBuyerOpenid("101001010101");
-        orderMaster.setBuyerPhone("10293894785");
-        Integer integer = orderMasterService.insertOne(orderMaster);
-        Assert.assertNotNull(integer);
+    public void create() {
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setBuyerName("Yang.J");
+        orderDto.setBuyerPhone("141242343");
+        orderDto.setBuyerAddress("YN");
+        orderDto.setBuyerOpenid(BUYER_OPENID);
+
+        List<OrderDetail> list = new ArrayList<>();
+
+        OrderDetail detail = new OrderDetail();
+
+        detail.setProductId(85L);
+        detail.setProductQuantity(3);
+
+
+        OrderDetail detail1 = new OrderDetail();
+
+        detail1.setProductId(82L);
+        detail1.setProductQuantity(3);
+
+        OrderDetail detail2 = new OrderDetail();
+
+        detail2.setProductId(83L);
+        detail2.setProductQuantity(3);
+
+
+        list.add(detail);
+        list.add(detail1);
+        list.add(detail2);
+
+        orderDto.setOrderDetailList(list);
+
+        orderDto = orderMasterService.create(orderDto);
+
+        Assert.assertNotNull(orderDto);
+
     }
 
 
     @Test
-    public void InsertList() {
-
-
-        List<OrderMaster> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            OrderMaster orderMaster = new OrderMaster();
-            orderMaster.setOrderId((long) i);
-            orderMaster.setBuyerAddress("地球");
-            orderMaster.setBuyerName("Dom,Yang");
-            orderMaster.setBuyerAmount(new BigDecimal(3.4));
-            orderMaster.setBuyerOpenid("101001010101");
-            orderMaster.setBuyerPhone("10293894785");
-            list.add(orderMaster);
-        }
-        orderMasterService.insertList(list);
+    public void queryOne() {
+        OrderDto orderDto = orderMasterService.queryOne(ORDER_ID);
+        log.debug("[订单详情]  {}", orderDto.toString());
     }
-
 
     @Test
     public void queryOrderByBuyerOpenId() {
         PageParam pageParam = PageParam.builder().build();
-        pageParam.setPageNum(3);
-        PageInfo<OrderMaster> orderMasterPageInfo = orderMasterService.queryOrderByBuyerOpenId(pageParam, "101001010101");
+        pageParam.setPageNum(1);
+        PageInfo<OrderDto> orderMasterPageInfo = orderMasterService.queryOrderList(pageParam, BUYER_OPENID);
         Assert.assertNotEquals(0, orderMasterPageInfo.getPageSize());
         orderMasterPageInfo.getList().forEach(e -> log.debug(e.toString()));
     }
