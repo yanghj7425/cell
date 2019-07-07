@@ -1,5 +1,6 @@
 package com.self.cell.product.service.impl;
 
+import com.self.cell.common.pojo.bo.PageParam;
 import com.self.cell.common.service.impl.AbstractBaseService;
 import com.self.cell.product.dao.ProductCategoryMapper;
 import com.self.cell.product.entity.ProductCategory;
@@ -32,6 +33,7 @@ public class ProductCategoryServiceImpl extends AbstractBaseService<ProductCateg
         Example example = createExample();
         Example.Criteria criteria = example.createCriteria();
         criteria.andIn("categoryType", categoryTypeList);
+
         return queryListByExample(example);
     }
 

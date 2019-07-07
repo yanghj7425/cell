@@ -1,9 +1,11 @@
-package com.self.cell.product.enmu;
+package com.self.cell.product.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ProductStatusEnum {
     UP(1, "在架"),
     DOWN(0, "下架");
-
 
     private int code;
     private String message;
@@ -11,13 +13,5 @@ public enum ProductStatusEnum {
     ProductStatusEnum(int code, String message) {
         this.code = code;
         this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }

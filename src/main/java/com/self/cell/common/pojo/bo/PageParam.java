@@ -1,12 +1,14 @@
 package com.self.cell.common.pojo.bo;
 
 
-import cn.hutool.core.map.MapUtil;
 import com.self.cell.common.util.HttpServletUtils;
+import lombok.Data;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class PageParam {
 
 
@@ -15,11 +17,21 @@ public class PageParam {
     private int pageSize;
     private int pageNum;
 
-    public PageParam(Builder builder) {
-        this.pageNum = builder.pageNum;
-        this.pageSize = builder.pageSize;
-        this.params = builder.target;
+    private PageParam() {
     }
+
+    public static Builder builder() {
+        return new PageParam().new Builder();
+    }
+
+
+    public static Builder builder(HttpServletRequest request) {
+        if (request == null) {
+            return builder();
+        }
+        return new PageParam().new Builder(request);
+    }
+
 
     public Map<String, Object> getParams() {
         return params;
@@ -47,32 +59,26 @@ public class PageParam {
     public class Builder {
 
 
-        private int pageNum;
-        private int pageSize;
-        private Map<String, Object> target;
-
-
-        public Builder() {
-            this.pageNum = 1;
-            this.pageSize = 7;
-            this.target = MapUtil.newHashMap();
+        private Builder() {
+            pageNum = 1;
+            pageSize = 7;
         }
 
-        public Builder(HttpServletRequest request) {
-            this();
-            this.pageNum = HttpServletUtils.getParameter(request, "pageNum", 1);
-            this.pageSize = HttpServletUtils.getParameter(request, "pageSize", 7);
+        private Builder(HttpServletRequest request) {
+            pageSize = HttpServletUtils.getParameter(request, "pageSize", 7);
+            pageNum = HttpServletUtils.getParameter(request, "pageNum", 1);
         }
 
         public Builder addParam(String key, Object value) {
-            target.put(key, value);
+            if (params == null) {
+                params = new HashMap<>();
+            }
+            params.put(key, value);
             return this;
         }
 
         public PageParam build() {
-            return new PageParam(this);
+            return PageParam.this;
         }
     }
-
-
 }

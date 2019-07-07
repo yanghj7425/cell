@@ -2,7 +2,7 @@ package com.self.cell.product.service.impl;
 
 import com.self.cell.common.service.impl.AbstractBaseService;
 import com.self.cell.product.dao.ProductInfoMapper;
-import com.self.cell.product.enmu.ProductStatusEnum;
+import com.self.cell.product.enums.ProductStatusEnum;
 import com.self.cell.product.entity.ProductInfo;
 import com.self.cell.product.service.ProductInfoService;
 import org.springframework.stereotype.Service;

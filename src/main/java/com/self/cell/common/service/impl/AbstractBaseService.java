@@ -1,5 +1,8 @@
 package com.self.cell.common.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.self.cell.common.pojo.bo.PageParam;
 import com.self.cell.common.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,8 @@ import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 @Slf4j
 public abstract class AbstractBaseService<T, M extends Mapper<T>> implements BaseService<T> {
@@ -21,6 +26,14 @@ public abstract class AbstractBaseService<T, M extends Mapper<T>> implements Bas
     }
 
 
+    /**
+     * @param list
+     * @return int 数量
+     * <pre>
+     *
+     * </pre>
+     * TODO: 改为批量操作
+     */
     @Override
     public Integer insertList(List<T> list) {
         Long count = list.stream().map(this::insertOne).count();
@@ -68,6 +81,19 @@ public abstract class AbstractBaseService<T, M extends Mapper<T>> implements Bas
     protected List<T> queryListByExample(Example example) {
         return baseMapper.selectByExample(example);
     }
+
+
+    protected final PageInfo<T> doQueryForPage(PageParam pageParam, Function<Map<String, Object>, List<T>> action) {
+        try {
+            PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
+            List<T> list = action.apply(pageParam.getParams());
+            PageInfo<T> pageInfo = PageInfo.of(list);
+            return pageInfo;
+        } finally {
+            PageHelper.clearPage();
+        }
+    }
+
 
     @Override
     public List<T> queryAll() {

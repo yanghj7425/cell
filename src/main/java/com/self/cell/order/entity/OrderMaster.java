@@ -1,14 +1,20 @@
 package com.self.cell.order.entity;
 
+import com.self.cell.order.enums.OrderStatusEnum;
+import com.self.cell.order.enums.PayStatusEnum;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "order_master")
+@ToString
 public class OrderMaster implements Serializable {
-    @Column(name = "order_id")
+
     @Id
+    @Column(name = "order_id")
     private Long orderId;
 
     /**
@@ -45,13 +51,13 @@ public class OrderMaster implements Serializable {
      * 订单状态,默认新下单
      */
     @Column(name = "order_status")
-    private Byte orderStatus;
+    private Byte orderStatus = OrderStatusEnum.NEW.getCode().byteValue();
 
     /**
      * 支付状态, 默认未支付
      */
     @Column(name = "pay_status")
-    private Byte payStatus;
+    private Byte payStatus = PayStatusEnum.WAIT.getCode().byteValue();
 
     /**
      * 创建时间

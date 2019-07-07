@@ -1,8 +1,6 @@
 package com.self.cell.product.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -14,8 +12,8 @@ import java.util.Date;
 @ToString
 public class ProductCategory implements Serializable {
 
-    @Column(name = "category_id")
     @Id
+    @Column(name = "category_id")
     private Long categoryId;
 
     /**
