@@ -24,10 +24,4 @@ public class ResultVo<T> {
      */
     private T data;
 
-
-    public ResultVo() {
-        code = 1;
-        msg = "成功";
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.self.cell.common.pojo;
+package com.self.cell.common.pojo.bo;
 
 
 import cn.hutool.core.map.MapUtil;

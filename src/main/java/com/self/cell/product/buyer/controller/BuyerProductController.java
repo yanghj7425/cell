@@ -1,12 +1,13 @@
 package com.self.cell.product.buyer.controller;
 
 import com.self.cell.common.pojo.vo.ResultVo;
+import com.self.cell.common.util.ResultVoUtils;
 import com.self.cell.product.entity.ProductCategory;
 import com.self.cell.product.entity.ProductInfo;
 import com.self.cell.product.service.ProductCategoryService;
 import com.self.cell.product.service.ProductInfoService;
-import com.self.cell.product.vo.ProductInfoVo;
-import com.self.cell.product.vo.ProductVo;
+import com.self.cell.product.pojo.vo.ProductInfoVo;
+import com.self.cell.product.pojo.vo.ProductVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,9 +62,7 @@ public class BuyerProductController {
         }
 
         // 4.返回
-        ResultVo resultVo = new ResultVo();
-        resultVo.setData(productVoList);
-        return resultVo;
+        return ResultVoUtils.success(productVoList);
     }
 
 

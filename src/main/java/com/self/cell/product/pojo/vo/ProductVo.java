@@ -1,4 +1,4 @@
-package com.self.cell.product.vo;
+package com.self.cell.product.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
