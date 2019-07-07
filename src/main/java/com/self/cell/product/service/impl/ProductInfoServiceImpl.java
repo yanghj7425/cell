@@ -33,8 +33,17 @@ public class ProductInfoServiceImpl extends AbstractBaseService<ProductInfo, Map
 
     @Override
     public void increaseStock(List<CartDto> cartDtoList) {
-
+        for (CartDto cartDto : cartDtoList) {
+            ProductInfo productInfo = queryOneById(cartDto.getProductId());
+            if (productInfo == null) {
+                throw new CellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            int stock = productInfo.getProductStock() + cartDto.getProductQuantity();
+            productInfo.setProductStock(stock);
+            updateSelectiveById(productInfo);
+        }
     }
+
 
     @Override
     public void decreaseStock(List<CartDto> cartDtoList) {

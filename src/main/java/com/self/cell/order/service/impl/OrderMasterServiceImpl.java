@@ -17,10 +17,12 @@ import com.self.cell.order.service.OrderMasterService;
 import com.self.cell.product.entity.ProductInfo;
 import com.self.cell.product.pojo.dto.CartDto;
 import com.self.cell.product.service.ProductInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.math.BigDecimal;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Mapper<OrderMaster>> implements OrderMasterService {
 
 
@@ -95,7 +98,43 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
 
     @Override
     public OrderDto cancel(OrderDto orderDto) {
-        return null;
+        // 判断状态
+        if (!orderDto.getOrderStatus().equals(OrderStatusEnum.NEW.getCode().byteValue())) {
+            log.error("【 取消订单】 订单状态不正确, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        OrderMaster orderMaster = new OrderMaster();
+        orderDto.setOrderStatus(OrderStatusEnum.CANCEL.getCode().byteValue());
+
+        BeanUtils.copyProperties(orderDto, orderMaster);
+
+        // 修改状态
+        Integer integer = updateSelectiveById(orderMaster);
+        if (integer == null || integer == 0) {
+            log.error("【取消订单】 更新失败, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_UPDATE_ERROR);
+        }
+
+        // 返回库存
+        if (CollectionUtils.isEmpty(orderDto.getOrderDetailList())) {
+            log.error("【取消订单】 更新失败, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_DETAIL_EMPTY);
+        }
+
+        List<CartDto> cartDtoList = orderDto.getOrderDetailList().stream().map(e ->
+                new CartDto(e.getProductId(), e.getProductQuantity())
+        ).collect(Collectors.toList());
+
+        productInfoService.increaseStock(cartDtoList);
+
+        // 退款
+        if (orderDto.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode().byteValue())) {
+            // TODO: 退款
+
+        }
+
+        return orderDto;
     }
 
     @Override

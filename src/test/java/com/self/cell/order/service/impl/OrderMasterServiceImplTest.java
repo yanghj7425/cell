@@ -71,7 +71,6 @@ public class OrderMasterServiceImplTest {
         orderDto = orderMasterService.create(orderDto);
 
         Assert.assertNotNull(orderDto);
-
     }
 
 
@@ -80,6 +79,16 @@ public class OrderMasterServiceImplTest {
         OrderDto orderDto = orderMasterService.queryOne(ORDER_ID);
         log.debug("[订单详情]  {}", orderDto.toString());
     }
+
+
+    @Test
+    public void cancel() {
+        OrderDto orderDto = orderMasterService.queryOne(ORDER_ID);
+        OrderDto cancel = orderMasterService.cancel(orderDto);
+        orderDto = orderMasterService.queryOne(ORDER_ID);
+        Assert.assertEquals(orderDto.getOrderStatus(), cancel.getOrderStatus());
+    }
+
 
     @Test
     public void queryOrderByBuyerOpenId() {
