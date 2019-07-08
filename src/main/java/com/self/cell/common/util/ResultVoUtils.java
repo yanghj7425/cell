@@ -4,15 +4,20 @@ import com.self.cell.common.pojo.vo.ResultVo;
 
 public class ResultVoUtils {
 
-    public static ResultVo success(Object data) {
-        ResultVo resultVo = new ResultVo();
+    private ResultVoUtils() {
+
+    }
+
+
+    public static <T> ResultVo<T> success(T data) {
+        ResultVo<T> resultVo = new ResultVo<>();
         resultVo.setData(data);
         resultVo.setCode(1);
         resultVo.setMsg("成功");
         return resultVo;
     }
 
-    public static ResultVo success(){
+    public static ResultVo success() {
         return success(null);
     }
 

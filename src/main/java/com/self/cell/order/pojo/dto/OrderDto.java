@@ -1,5 +1,7 @@
 package com.self.cell.order.pojo.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.self.cell.common.util.serializer.Date2LongSerializer;
 import com.self.cell.order.entity.OrderDetail;
 import lombok.Data;
 
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto {
 
     private Long orderId;
@@ -50,11 +53,13 @@ public class OrderDto {
     /**
      * 创建时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
+//    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
 

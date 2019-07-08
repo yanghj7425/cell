@@ -7,7 +7,7 @@ import com.self.cell.order.entity.OrderMaster;
 import com.self.cell.order.pojo.dto.OrderDto;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
-public interface OrderMasterService extends BaseService<OrderMaster> {
+public interface OrderService extends BaseService<OrderMaster> {
 
 
     /**
@@ -67,7 +67,7 @@ public interface OrderMasterService extends BaseService<OrderMaster> {
      *     查询订单列表
      * </pre>
      */
-    PageInfo<OrderDto> queryOrderList(PageParam pageParam, String openId);
+    PageInfo<OrderDto> queryOrderList(String openId,PageParam pageParam);
 
 
 }

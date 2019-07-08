@@ -13,7 +13,7 @@ import com.self.cell.order.enums.OrderStatusEnum;
 import com.self.cell.order.enums.PayStatusEnum;
 import com.self.cell.order.pojo.dto.OrderDto;
 import com.self.cell.order.service.OrderDetailService;
-import com.self.cell.order.service.OrderMasterService;
+import com.self.cell.order.service.OrderService;
 import com.self.cell.product.entity.ProductInfo;
 import com.self.cell.product.pojo.dto.CartDto;
 import com.self.cell.product.service.ProductInfoService;
@@ -27,7 +27,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @Slf4j
-public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Mapper<OrderMaster>> implements OrderMasterService {
+public class OrderServiceImpl extends AbstractBaseService<OrderMaster, Mapper<OrderMaster>> implements OrderService {
 
 
     @Autowired
@@ -45,14 +44,13 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
     @Autowired
     private OrderDetailService orderDetailService;
 
-
     @Override
     public OrderDto create(OrderDto orderDto) {
         // 查询商品 （数量，价格）
 
         BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
         long orderId = KeyUtils.genUniqueKey();
-
+        orderDto.setOrderId(orderId);
 
         for (OrderDetail orderDetail : orderDto.getOrderDetailList()) {
             ProductInfo productInfo = productInfoService.queryOneById(orderDetail.getProductId());
@@ -73,9 +71,9 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
 
         // 写入 orderMaster
         OrderMaster orderMaster = new OrderMaster();
+
         BeanUtils.copyProperties(orderDto, orderMaster);
 
-        orderMaster.setOrderId(orderId);
         orderMaster.setBuyerAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode().byteValue());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode().byteValue());
@@ -91,9 +89,27 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
 
     @Override
     public OrderDto paid(OrderDto orderDto) {
+        // 判断状态
+        if (!orderDto.getOrderStatus().equals(OrderStatusEnum.NEW.getCode().byteValue())) {
+            log.error("【 支付订单 】 订单状态不正确, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
 
+        // 修改支付状态
+        if (!orderDto.getPayStatus().equals(PayStatusEnum.WAIT.getCode().byteValue())) {
+            log.error("【 支付订单 】 订单状态不正确, orderId = {}, payStatus = {}", orderDto.getOrderId(), orderDto.getPayStatus());
+            throw new CellException(ResultEnum.ORDER_PAY_STATUS_ERROR);
+        }
+        OrderMaster orderMaster = new OrderMaster();
+        orderDto.setPayStatus(PayStatusEnum.SUCCESS.getCode().byteValue());
+        BeanUtils.copyProperties(orderDto, orderMaster);
 
-        return null;
+        Integer integer = updateSelectiveById(orderMaster);
+        if (integer == null || integer == 0) {
+            log.error("【支付订单】 支付状态修改失败, orderId = {}, payStatus = {}", orderDto.getOrderId(), orderDto.getPayStatus());
+            throw new CellException(ResultEnum.ORDER_PAY_STATUS_ERROR);
+        }
+        return orderDto;
     }
 
     @Override
@@ -139,7 +155,24 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
 
     @Override
     public OrderDto finish(OrderDto orderDto) {
-        return null;
+        // 判断订单状态
+        if (!orderDto.getOrderStatus().equals(OrderStatusEnum.NEW.getCode().byteValue())) {
+            log.error("【 完结订单 】 订单状态不正确, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        //修改状态
+        OrderMaster orderMaster = new OrderMaster();
+        orderDto.setOrderStatus(OrderStatusEnum.FINISHED.getCode().byteValue());
+        BeanUtils.copyProperties(orderDto, orderMaster);
+
+
+        Integer integer = updateSelectiveById(orderMaster);
+        if (integer == null || integer == 0) {
+            log.error("【完结订单】 更新失败, orderId = {}, orderStatus = {}", orderDto.getOrderId(), orderDto.getOrderStatus());
+            throw new CellException(ResultEnum.ORDER_UPDATE_ERROR);
+        }
+        return orderDto;
     }
 
     @Override
@@ -163,7 +196,7 @@ public class OrderMasterServiceImpl extends AbstractBaseService<OrderMaster, Map
     }
 
     @Override
-    public PageInfo<OrderDto> queryOrderList(PageParam pageParam, String openId) {
+    public PageInfo<OrderDto> queryOrderList(String openId, PageParam pageParam) {
         PageInfo<OrderDto> result = new PageInfo<>();
         PageInfo<OrderMaster> pageInfo = doQueryForPage(pageParam, map -> queryListByProperty(OrderMaster.class, "buyerOpenid", Arrays.asList(openId)));
 

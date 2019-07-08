@@ -10,4 +10,11 @@ public class CellException extends RuntimeException {
         super(resultEnum.getMsg());
         this.code = resultEnum.getCode();
     }
+
+    public CellException(Integer code, String message) {
+        super(message);
+        this.code = code;
+    }
+
+
 }

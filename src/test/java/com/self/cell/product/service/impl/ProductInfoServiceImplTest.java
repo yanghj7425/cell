@@ -41,15 +41,15 @@ public class ProductInfoServiceImplTest {
         List<ProductInfo> list = new ArrayList<>();
         int start = 0;
 
-        for (int i = start; i < start + 100; i++) {
+        for (int i = start; i < start + 5; i++) {
             ProductInfo productInfo = new ProductInfo();
             productInfo.setProductId((long) i);
             productInfo.setProductName("商品名称" + i + "号");
-            productInfo.setProductPrice(new BigDecimal(3.4));
+            productInfo.setProductPrice(new BigDecimal(2.5));
             productInfo.setProductStatus((byte) (i & 1));
             productInfo.setCategoryType(i % 5);
             productInfo.setProductDescription("鱿鱼三明治好不好吃");
-            productInfo.setProductStock(i);
+            productInfo.setProductStock(200);
             productInfo.setProductIcon(i + ".png");
             list.add(productInfo);
 

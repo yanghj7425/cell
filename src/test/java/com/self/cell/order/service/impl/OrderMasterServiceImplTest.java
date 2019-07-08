@@ -3,9 +3,8 @@ package com.self.cell.order.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.self.cell.common.pojo.bo.PageParam;
 import com.self.cell.order.entity.OrderDetail;
-import com.self.cell.order.entity.OrderMaster;
 import com.self.cell.order.pojo.dto.OrderDto;
-import com.self.cell.order.service.OrderMasterService;
+import com.self.cell.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,11 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
@@ -27,12 +23,12 @@ import static org.junit.Assert.*;
 public class OrderMasterServiceImplTest {
 
     @Autowired
-    private OrderMasterService orderMasterService;
+    private OrderService orderMasterService;
 
     private final String BUYER_OPENID = "this_is_open_id_str";
 
 
-    private final long ORDER_ID = 1562508865153L;
+    private final long ORDER_ID = 1562551090758L;
 
     @Test
     public void create() {
@@ -47,18 +43,18 @@ public class OrderMasterServiceImplTest {
 
         OrderDetail detail = new OrderDetail();
 
-        detail.setProductId(85L);
+        detail.setProductId(1L);
         detail.setProductQuantity(3);
 
 
         OrderDetail detail1 = new OrderDetail();
 
-        detail1.setProductId(82L);
+        detail1.setProductId(2L);
         detail1.setProductQuantity(3);
 
         OrderDetail detail2 = new OrderDetail();
 
-        detail2.setProductId(83L);
+        detail2.setProductId(3L);
         detail2.setProductQuantity(3);
 
 
@@ -91,10 +87,27 @@ public class OrderMasterServiceImplTest {
 
 
     @Test
+    public void finish() {
+        OrderDto orderDto = orderMasterService.queryOne(ORDER_ID);
+        OrderDto cancel = orderMasterService.finish(orderDto);
+        Assert.assertEquals(orderDto.getOrderStatus(), cancel.getOrderStatus());
+
+    }
+
+
+    @Test
+    public void paid() {
+        OrderDto orderDto = orderMasterService.queryOne(ORDER_ID);
+        OrderDto cancel = orderMasterService.paid(orderDto);
+        log.info(cancel.toString());
+    }
+
+
+    @Test
     public void queryOrderByBuyerOpenId() {
         PageParam pageParam = PageParam.builder().build();
         pageParam.setPageNum(1);
-        PageInfo<OrderDto> orderMasterPageInfo = orderMasterService.queryOrderList(pageParam, BUYER_OPENID);
+        PageInfo<OrderDto> orderMasterPageInfo = orderMasterService.queryOrderList(BUYER_OPENID, pageParam);
         Assert.assertNotEquals(0, orderMasterPageInfo.getPageSize());
         orderMasterPageInfo.getList().forEach(e -> log.debug(e.toString()));
     }
