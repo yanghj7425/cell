@@ -10,6 +10,7 @@ import com.self.cell.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,5 +50,23 @@ public class OrderPayController {
 
         return new ModelAndView("order/pay/create", result);
     }
+
+
+    /**
+     * <pre>
+     *  支付成功 支付平台会回调一个接口
+     * </pre>
+     *
+     * @param notifyData
+     */
+    @PostMapping("notify")
+    public ModelAndView asyncNotify(String notifyData) {
+        orderPayService.asyncNotify(notifyData);
+
+
+        // 返回处理结果 用模板引擎
+        return new ModelAndView("pay/success");
+    }
+
 
 }

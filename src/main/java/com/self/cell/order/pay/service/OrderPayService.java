@@ -7,4 +7,8 @@ public interface OrderPayService {
     void create(OrderDto orderDto);
 
 
+    void asyncNotify(String notifyData);
+
+
+    void refund(OrderDto orderDto);
 }
