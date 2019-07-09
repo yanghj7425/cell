@@ -5,5 +5,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @Configuration
 @MapperScan(basePackages = "com.self.cell.*.dao")
+//@ConfigurationProperties(prefix = "")
 public class MybatisConfig {
 }
