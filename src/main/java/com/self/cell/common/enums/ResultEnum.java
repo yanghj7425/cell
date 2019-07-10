@@ -9,7 +9,9 @@ public enum ResultEnum {
 
     CART_EMPTY_ERROR(19, "公务车不能为空"),
 
-    ORDER_OWNER__ERROR(305, "该订单不属于当前用户"),
+    ORDER_PAY_AMOUNT_ERROR(307, "订单支付状态不正确"),
+
+    ORDER_OWNER__ERROR(306, "该订单不属于当前用户"),
 
     ORDER_PAY_STATUS_ERROR(305, "订单支付状态不正确"),
 

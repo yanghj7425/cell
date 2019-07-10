@@ -1,6 +1,7 @@
 package com.self.cell.product.dao;
 
-import com.self.cell.product.entity.ProductCategory;
+import com.self.cell.modules.product.dao.ProductCategoryMapper;
+import com.self.cell.modules.product.entity.ProductCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
