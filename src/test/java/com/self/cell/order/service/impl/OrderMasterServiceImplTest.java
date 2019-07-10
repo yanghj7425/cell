@@ -2,9 +2,9 @@ package com.self.cell.order.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.self.cell.common.pojo.bo.PageParam;
-import com.self.cell.order.entity.OrderDetail;
-import com.self.cell.order.pojo.dto.OrderDto;
-import com.self.cell.order.service.OrderService;
+import com.self.cell.modules.order.entity.OrderDetail;
+import com.self.cell.modules.order.pojo.dto.OrderDto;
+import com.self.cell.modules.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

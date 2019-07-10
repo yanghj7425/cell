@@ -1,9 +1,8 @@
 package com.self.cell.product.service.impl;
 
-import com.self.cell.product.entity.ProductInfo;
-import com.self.cell.product.service.ProductInfoService;
+import com.self.cell.modules.product.entity.ProductInfo;
+import com.self.cell.modules.product.service.ProductInfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Select;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)

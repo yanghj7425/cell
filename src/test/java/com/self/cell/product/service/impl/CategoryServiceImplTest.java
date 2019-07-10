@@ -1,7 +1,7 @@
 package com.self.cell.product.service.impl;
 
-import com.self.cell.product.entity.ProductCategory;
-import com.self.cell.product.service.ProductCategoryService;
+import com.self.cell.modules.product.entity.ProductCategory;
+import com.self.cell.modules.product.service.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Arrays;

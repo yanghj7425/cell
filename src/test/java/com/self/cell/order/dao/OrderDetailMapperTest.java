@@ -1,16 +1,15 @@
 package com.self.cell.order.dao;
 
 import com.self.cell.config.MybatisConfig;
-import com.self.cell.order.entity.OrderDetail;
+import com.self.cell.modules.order.dao.OrderDetailMapper;
+import com.self.cell.modules.order.entity.OrderDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

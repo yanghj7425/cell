@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.self.cell.order.dao.OrderMasterMapper">
-  <resultMap id="BaseResultMap" type="com.self.cell.order.entity.OrderMaster">
+<mapper namespace="com.self.cell.modules.order.dao.OrderMasterMapper">
+  <resultMap id="BaseResultMap" type="com.self.cell.modules.order.entity.OrderMaster">
     <!--
       WARNING - @mbg.generated
     -->

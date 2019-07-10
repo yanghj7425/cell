@@ -1,7 +1,8 @@
 package com.self.cell.order.dao;
 
 import com.self.cell.config.MybatisConfig;
-import com.self.cell.order.entity.OrderMaster;
+import com.self.cell.modules.order.dao.OrderMasterMapper;
+import com.self.cell.modules.order.entity.OrderMaster;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
