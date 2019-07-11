@@ -63,10 +63,20 @@ public interface OrderService extends BaseService<OrderMaster> {
      * @param openId    微信 openId
      * @return PageInfo
      * <pre>
-     *     查询订单列表
+     *     查询订单列表(个人)
      * </pre>
      */
     PageInfo<OrderDto> queryOrderList(String openId, PageParam pageParam);
 
+
+    /**
+     * @param pageParam 分页对象
+     * @param openId    微信 openId
+     * @return PageInfo
+     * <pre>
+     *     查询订单列表(所有人)
+     * </pre>
+     */
+    PageInfo<OrderDto> queryOrderList(PageParam pageParam);
 
 }

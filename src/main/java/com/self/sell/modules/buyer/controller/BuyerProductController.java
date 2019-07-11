@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("product/buyer")
-public class ProductBuyerController {
+@RequestMapping("buyer/product")
+public class BuyerProductController {
 
 
     @Autowired

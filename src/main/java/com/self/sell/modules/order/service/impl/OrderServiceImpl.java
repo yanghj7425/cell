@@ -209,5 +209,17 @@ public class OrderServiceImpl extends AbstractBaseService<OrderMaster, Mapper<Or
         return result;
     }
 
+    @Override
+    public PageInfo<OrderDto> queryOrderList(PageParam pageParam) {
+        PageInfo<OrderDto> result = new PageInfo<>();
 
+        PageInfo<OrderMaster> pageInfo = doQueryForPage(pageParam, map -> queryAll());
+        List<OrderDto> dtoList = OrderMaster2OrderDtoConvert.convert(pageInfo.getList());
+
+        pageInfo.setList(null);
+        BeanUtils.copyProperties(pageInfo, result);
+
+        result.setList(dtoList);
+        return result;
+    }
 }

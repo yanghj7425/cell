@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("order/buyer")
+@RequestMapping("buyer/order")
 @Slf4j
-public class OrderBuyerController {
+public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
