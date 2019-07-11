@@ -1,7 +1,7 @@
 
-create database cell charset utf8mb4;
+create database sell charset utf8mb4;
 
-use cell;
+use sell;
 
 CREATE TABLE product_info (
     product_id bigint NOT NULL PRIMARY KEY,

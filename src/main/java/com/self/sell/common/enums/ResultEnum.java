@@ -7,7 +7,7 @@ import lombok.Getter;
 public enum ResultEnum {
 
 
-    CART_EMPTY_ERROR(19, "公务车不能为空"),
+    CART_EMPTY_ERROR(19, "购物车不能为空"),
 
     ORDER_PAY_AMOUNT_ERROR(307, "订单支付状态不正确"),
 
