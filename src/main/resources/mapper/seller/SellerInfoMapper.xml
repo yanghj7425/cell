@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.self.sell.modules.seller.dao.SellerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.self.sell.modules.seller.entity.SellerInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+    <result column="seller_passwd" jdbcType="VARCHAR" property="sellerPasswd" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+
+  <select id="queryByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT
+         seller_id,   seller_name,  seller_passwd,
+         openid
+      FROM seller_info
+      WHERE openid = #{openId}
+  </select>
+
+
+</mapper>
