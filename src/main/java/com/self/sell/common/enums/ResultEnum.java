@@ -4,7 +4,7 @@ package com.self.sell.common.enums;
 import lombok.Getter;
 
 @Getter
-public enum ResultEnum {
+public enum ResultEnum implements CodeEnum {
 
 
     CART_EMPTY_ERROR(19, "购物车不能为空"),

@@ -23,16 +23,16 @@
                 </thead>
                 <tbody>
                 <#list orderPage.getList() as item>
-                       <tr>
-                           <td> ${ item.orderId ?c } </td>
-                           <td> ${ item.buyerName } </td>
-                           <td> ${ item.buyerPhone } </td>
-                           <td> ${ item.buyerAddress } </td>
-                           <td> ${ item.buyerAmount } </td>
-                           <td> ${ item.orderStatus } </td>
-                           <td> ${ item.payStatus } </td>
-                           <td> ${ item.createTime ? string('yyyy-MM-dd HH:mm:ss')}</td>
-                       </tr>
+                <tr>
+                    <td> ${ item.orderId ?c } </td>
+                    <td> ${ item.buyerName } </td>
+                    <td> ${ item.buyerPhone } </td>
+                    <td> ${ item.buyerAddress } </td>
+                    <td> ${ item.buyerAmount } </td>
+                    <td> ${ item.getOrderStatusEnum().getMsg() } </td>
+                    <td> ${ item.getPayStatusEnum().getMsg() } </td>
+                    <td> ${ item.createTime ? string('yyyy-MM-dd HH:mm:ss')}</td>
+                </tr>
                 </#list>
                 </tbody>
             </table>

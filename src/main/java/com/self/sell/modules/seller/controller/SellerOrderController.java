@@ -1,5 +1,6 @@
 package com.self.sell.modules.seller.controller;
 
+import cn.hutool.core.map.MapUtil;
 import com.github.pagehelper.PageInfo;
 import com.self.sell.common.pojo.bo.PageParam;
 import com.self.sell.modules.order.pojo.dto.OrderDto;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +26,14 @@ public class SellerOrderController {
 
 
     @GetMapping("list")
-    public ModelAndView list(Map<String, Object> map, HttpServletRequest request) {
+    public ModelAndView list(HttpServletRequest request) {
         PageParam pageParam = PageParam.builder(request).build();
 
+
+        Map<String, Object> map = MapUtil.newHashMap();
         PageInfo<OrderDto> orderPage = orderService.queryOrderList(pageParam);
         map.put("orderPage", orderPage);
+
 
         long count = orderPage.getList().stream().map(e -> {
             log.info("【Id 】  id = {}", e.getOrderId());
@@ -38,5 +43,19 @@ public class SellerOrderController {
         return new ModelAndView("seller/order/list", map);
     }
 
+    @GetMapping("list1")
+    @ResponseBody
+    public Map<String, Object> list1(HttpServletRequest request) {
+        PageParam pageParam = PageParam.builder(request).build();
+        Map<String, Object> map = MapUtil.newHashMap();
+        PageInfo<OrderDto> orderPage = orderService.queryOrderList(pageParam);
+        map.put("orderPage", orderPage);
+        long count = orderPage.getList().stream().map(e -> {
+            log.info("【Id 】  id = {}", e.getOrderId());
+            return e;
+        }).count();
+        log.info("【 查询 】 count = {}", count);
+        return map;
+    }
 
 }

@@ -5,22 +5,23 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 
+import java.util.Arrays;
 import java.util.Collections;
 
-@Configuration
+//@Configuration
 public class SellConfig {
 
-//    public HttpMessageConverters fastJsonHttpMessageConvert() {
-//        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
-//        fastJsonHttpMessageConverter.getFastJsonConfig().setDateFormat("yyyy-MM-dd");
-//        fastJsonHttpMessageConverter.setSupportedMediaTypes(
-//                Collections.singletonList(MediaType.APPLICATION_JSON_UTF8));
-//
-//
-//        return new HttpMessageConverters(fastJsonHttpMessageConverter);
-//
-//    }
+//    @Bean
+    public HttpMessageConverters fastJsonHttpMessageConvert() {
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonHttpMessageConverter.getFastJsonConfig().setDateFormat("yyyy-MM-dd");
+
+        fastJsonHttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8, MediaType.APPLICATION_OCTET_STREAM));
+        return new HttpMessageConverters(fastJsonHttpMessageConverter);
+
+    }
 
 
 }
