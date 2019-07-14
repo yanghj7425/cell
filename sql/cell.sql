@@ -58,6 +58,15 @@ CREATE TABLE order_detail (
     KEY `idx_order_id` (order_id)
 )  COMMENT '订单详情';
 
+CREATE TABLE seller_info (
+    seller_id bigint NOT NULL PRIMARY KEY,
+    seller_name VARCHAR(64) NOT NULL COMMENT '用户名',
+    seller_passwd VARCHAR(64) NOT NULL COMMENT '密码',
+    openid varchar(64) not null  comment '微信openId',
+    create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间'
+)  COMMENT '卖家信息';
+
 
 
 

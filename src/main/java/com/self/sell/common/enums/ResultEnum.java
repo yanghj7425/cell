@@ -9,6 +9,9 @@ public enum ResultEnum implements CodeEnum {
 
     CART_EMPTY_ERROR(19, "购物车不能为空"),
 
+    SELLER_INFO_NOT_EXIST(401, "卖家信息不存在"),
+
+
     ORDER_PAY_AMOUNT_ERROR(307, "订单支付状态不正确"),
 
     ORDER_OWNER__ERROR(306, "该订单不属于当前用户"),
