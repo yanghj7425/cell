@@ -17,6 +17,7 @@ import com.self.sell.modules.order.service.OrderService;
 import com.self.sell.modules.product.entity.ProductInfo;
 import com.self.sell.modules.product.pojo.dto.CartDto;
 import com.self.sell.modules.product.service.ProductInfoService;
+import com.self.sell.modules.seller.component.SellerWebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,11 @@ public class OrderServiceImpl extends AbstractBaseService<OrderMaster, Mapper<Or
 
     @Autowired
     private OrderDetailService orderDetailService;
+
+
+    @Autowired
+    private SellerWebSocket sellerWebSocket;
+
 
     @Override
     public OrderDto create(OrderDto orderDto) {
@@ -84,6 +90,10 @@ public class OrderServiceImpl extends AbstractBaseService<OrderMaster, Mapper<Or
         List<CartDto> cartDtoList = orderDto.getOrderDetailList().stream().map(e -> new CartDto(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productInfoService.decreaseStock(cartDtoList);
+
+
+        sellerWebSocket.sendMessage("你有一个新的订单：【"+ orderId +"】");
+
         return orderDto;
     }
 
