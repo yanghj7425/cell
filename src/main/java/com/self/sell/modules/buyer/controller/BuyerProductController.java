@@ -10,6 +10,7 @@ import com.self.sell.modules.product.service.ProductCategoryService;
 import com.self.sell.modules.product.service.ProductInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +32,9 @@ public class BuyerProductController {
     private ProductCategoryService categoryService;
 
     @GetMapping("list")
-    public ResultVo list() {
+    @Cacheable(cacheNames = "product", key = "#sellerId", condition = "#sellerId > 0", unless = "#result.getCode() != 0")
+    public ResultVo list(long sellerId) {
 
-
-        // 1. 查询所有上架的商品
         List<ProductInfo> productInfoList = productInfoService.queryAllOnSaleProducts();
 
         // 2.查询类目

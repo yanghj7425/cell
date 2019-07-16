@@ -12,7 +12,7 @@ spring:
 
   redis:
     database: 0
-    host: 192.168.2.213
+    host: 172.18.104.104
     port: 6379
 
 mybatis:
