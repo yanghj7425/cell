@@ -1,5 +1,7 @@
 package com.self.sell.common.component;
 
+import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,11 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
 
     private static final String LETTER = "【 redis 操作 】";
@@ -78,7 +76,7 @@ public class RedisUtils {
      */
     public boolean set(String key, Object value) {
         try {
-            redisTemplate.opsForValue().set(key, value);
+            redisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(value));
             return true;
         } catch (Exception e) {
             log.error("{} set 操作失败，message = {}", LETTER, e.getMessage(), e);
@@ -99,17 +97,18 @@ public class RedisUtils {
     public boolean lock(String key, String value) {
 
         boolean isAbsent = redisTemplate.opsForValue().setIfAbsent(key, value);
+
         // 如果不存在直接获得锁
         if (isAbsent) {
             return true;
         }
 
-        String currentValue = stringRedisTemplate.opsForValue().get(key);
+        String currentValue = redisTemplate.opsForValue().get(key);
         // 如果锁过期
         if (!StringUtils.isEmpty(currentValue) &&
                 Long.parseLong(currentValue) < System.currentTimeMillis()) {
             // 获取上一个锁的时间
-            Object oldValue = stringRedisTemplate.opsForValue().getAndSet(key, value);
+            Object oldValue = redisTemplate.opsForValue().getAndSet(key, value);
 
             if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {
                 return true;
@@ -120,11 +119,11 @@ public class RedisUtils {
 
 
     /**
-     * @param key   key
+     * @param key key
      */
-    public void unlock(String key) {
-        String currentValue = stringRedisTemplate.opsForValue().get(key);
-        if (!StringUtils.isEmpty(currentValue)) {
+    public void unlock(String key,String value) {
+        String currentValue = redisTemplate.opsForValue().get(key);
+        if (!StringUtils.isEmpty(currentValue) && currentValue.equals(value)) {
             redisTemplate.delete(key);
         }
     }
