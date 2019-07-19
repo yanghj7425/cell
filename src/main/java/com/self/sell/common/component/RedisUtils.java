@@ -117,11 +117,11 @@ public class RedisUtils {
         return false;
     }
 
-
     /**
-     * @param key key
+     * @param key   key
+     * @param value 时间戳
      */
-    public void unlock(String key,String value) {
+    public void unlock(String key, String value) {
         String currentValue = redisTemplate.opsForValue().get(key);
         if (!StringUtils.isEmpty(currentValue) && currentValue.equals(value)) {
             redisTemplate.delete(key);
