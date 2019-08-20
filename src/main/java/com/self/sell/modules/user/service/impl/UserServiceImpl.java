@@ -21,7 +21,7 @@ public class UserServiceImpl extends AbstractBaseService<SysUser, Mapper<SysUser
 
 
     @Override
-    @DynamicRoutingDataSource(name = "dataSource1")
+    @DynamicRoutingDataSource(name = "mini")
     public List<SysUser> queryAll() {
         return super.queryAll();
     }
