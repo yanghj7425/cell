@@ -1,6 +1,6 @@
 package com.self.sell.modules.user.service.impl;
 
-import com.self.sell.common.db.aop.annotation.DynamicRoutingDataSource;
+import com.self.sell.common.multidb.aop.annotation.DynamicRoutingDataSource;
 import com.self.sell.common.service.impl.AbstractBaseService;
 import com.self.sell.modules.user.entity.SysUser;
 import com.self.sell.modules.user.service.UserService;
